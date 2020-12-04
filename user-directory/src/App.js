@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from "react";
 import './App.css';
+import API from "./Utils/API"
+import Card from "./components/Card"
+
+// import Wrapper from "./components/Wrapper";
+
 
 function App() {
+
+  const [employeeData, setEmployeeData] = useState([])
+
+  useEffect(() => {
+    API.getEmployees().then(response => {
+      setEmployeeData(response.data.results);
+    })
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+
+    <div>
+      {console.log(employeeData)}
+      {/* <img src="..." class="card-img-top" alt="..." /> */}
+      {employeeData.map(info =>
+        <Card employee={info} />
+
+      )}
+
     </div>
+
   );
 }
 
