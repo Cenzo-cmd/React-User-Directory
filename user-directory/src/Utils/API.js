@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const API = {
-    getEmployees: function () {
-        return axios.get("https://randomuser.me/api/?results=10&nat=us");
+    getEmployees: function (num = 10) {
+        return axios.get(`https://randomuser.me/api/?results=${num}&nat=us`);
     }
 }
 

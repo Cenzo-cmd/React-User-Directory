@@ -10,11 +10,12 @@ import Navbar from "./components/Navbar";
 function App() {
 
   const [employeeData, setEmployeeData] = useState([]);
-  // const [employeeObject, setEmployeeObject] = useState("");
+  const [employeeArr, setEmployeeArr] = useState([]);
 
   useEffect(() => {
     API.getEmployees().then(response => {
       setEmployeeData(response.data.results);
+      setEmployeeArr(response.data.results);
     })
   }, []);
 
@@ -23,7 +24,7 @@ function App() {
       a.name.first.localeCompare(b.name.first)
     )
     console.log("this is the sorted", sorted)
-    setEmployeeData(sorted);
+    setEmployeeData([...sorted]);
   }
 
   function reverseSorted() {
@@ -31,13 +32,14 @@ function App() {
       b.name.first.localeCompare(a.name.first)
     )
     console.log("reverse sorted", reverseSort);
-    setEmployeeData(reverseSort);
+    setEmployeeData([...reverseSort]);
   }
 
   function filterUsers(e) {
-    const filterByFirst = employeeData.filter((a) => a.name.first.toLowerCase().includes(e.target.value));
+    const filterByFirst = employeeArr.filter((a) => a.name.first.toLowerCase().includes(e.target.value));
     console.log("FIRST", filterByFirst);
-    console.log(e.target.value)
+    console.log(e.target.value);
+    setEmployeeData(filterByFirst);
   }
 
   function filterUsersLast(e) {
@@ -45,11 +47,26 @@ function App() {
     console.log("LAST", filteredByLast)
   }
 
-  // function search(names) {
-  //   return names.filter(name => name.firstName.toLowerCase().indexOf(employeeObject));
-  // }
+  function search20() {
+    API.getEmployees(20).then(response => {
+      setEmployeeData(response.data.results);
+      setEmployeeArr(response.data.results);
+    })
+  }
 
+  function search50() {
+    API.getEmployees(50).then(response => {
+      setEmployeeData(response.data.results);
+      setEmployeeArr(response.data.results);
+    })
+  }
 
+  function search100() {
+    API.getEmployees(100).then(response => {
+      setEmployeeData(response.data.results);
+      setEmployeeArr(response.data.results);
+    })
+  }
 
   return (
     <div>
@@ -62,12 +79,17 @@ function App() {
         <input className="button" type="text" placeholder="Search user by first name" onChange={filterUsers} />
         <input className="button" type="text" placeholder="Search user by last name" onChange={filterUsersLast} />
       </div>
-      {console.log(employeeData)}
+      <div>
+        {employeeData.map(info =>
+          <Card employee={info} key={info.id.value} />
+        )}
+      </div>
 
-      {employeeData.map(info =>
-        <Card employee={info} key={info.id.value} />
-      )}
-
+      <div className="clearfix">
+        <button className="button" onClick={search20}>Search for 20 Employees</button>
+        <button className="button" onClick={search50}>Search for 50 Employees</button>
+        <button className="button" onClick={search100}>Search for 100 Employees</button>
+      </div>
     </div>
   );
 }
