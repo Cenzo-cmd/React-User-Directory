@@ -34,12 +34,12 @@ function App() {
   }
 
   function filterUsers(e) {
-    const filterByFirst = employeeArr.filter((a) => a.name.first.toLowerCase().includes(e.target.value));
+    const filterByFirst = employeeArr.filter((a) => a.name.first.toLowerCase().includes(e.target.value.toLowerCase()));
     setEmployeeData(filterByFirst);
   }
 
   function filterUsersLast(e) {
-    const filteredByLast = employeeArr.filter((a) => a.name.last.toLowerCase().includes(e.target.value));
+    const filteredByLast = employeeArr.filter((a) => a.name.last.toLowerCase().includes(e.target.value.toLowerCase()));
     setEmployeeData(filteredByLast);
   }
 
