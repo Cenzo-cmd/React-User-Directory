@@ -23,28 +23,24 @@ function App() {
     const sorted = employeeData.sort((a, b) =>
       a.name.first.localeCompare(b.name.first)
     )
-    console.log("this is the sorted", sorted)
     setEmployeeData([...sorted]);
   }
 
   function reverseSorted() {
     const reverseSort = employeeData.sort((a, b) =>
-      b.name.first.localeCompare(a.name.first)
+      a.name.last.localeCompare(b.name.last)
     )
-    console.log("reverse sorted", reverseSort);
     setEmployeeData([...reverseSort]);
   }
 
   function filterUsers(e) {
     const filterByFirst = employeeArr.filter((a) => a.name.first.toLowerCase().includes(e.target.value));
-    console.log("FIRST", filterByFirst);
-    console.log(e.target.value);
     setEmployeeData(filterByFirst);
   }
 
   function filterUsersLast(e) {
-    const filteredByLast = employeeData.filter((a) => a.name.last.toLowerCase().includes(e.target.value));
-    console.log("LAST", filteredByLast)
+    const filteredByLast = employeeArr.filter((a) => a.name.last.toLowerCase().includes(e.target.value));
+    setEmployeeData(filteredByLast);
   }
 
   function search20() {
@@ -71,11 +67,10 @@ function App() {
   return (
     <div>
       <Navbar />
-      {/* <input type="text" value={employeeObject} onChange={(e) => setEmployeeObject(e.target.value)} /> */}
       <br />
       <div className="buttons">
         <button className="button" onClick={sortedUsers}>Sort first name A-Z</button>
-        <button className="button" onClick={reverseSorted}>Sort first name Z-A</button>
+        <button className="button" onClick={reverseSorted}>Sort last name A-Z</button>
         <input className="button" type="text" placeholder="Search user by first name" onChange={filterUsers} />
         <input className="button" type="text" placeholder="Search user by last name" onChange={filterUsersLast} />
       </div>
